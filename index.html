@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danielle Boggio - Business Card</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --berry: #6B212C;
+    --branch: #685652;
+    --snowflake: #DCE0E8;
+    --mist: #8EA1AE;
+    --pine: #27363F;
+    --white: #FFFFFF;
+    --card-width: 3.5in;
+    --card-height: 2in;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 40px;
+    padding: 40px 20px;
+  }
+
+  h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--branch);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: -20px;
+  }
+
+  .card {
+    width: var(--card-width);
+    height: var(--card-height);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  /* ── FRONT ── */
+  .card-front {
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-front .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .card-front .logo-img {
+    height: 72px;
+    width: auto;
+  }
+
+  .card-front .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-front .logo-text .company-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--pine);
+    line-height: 1.15;
+  }
+
+  .card-front .logo-text .since {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--mist);
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+
+  .card-front .accent-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--berry) 0%, var(--berry) 60%, var(--mist) 100%);
+  }
+
+  /* ── BACK ── */
+  .card-back {
+    background: var(--white);
+    display: flex;
+    flex-direction: row;
+  }
+
+  .card-back .side-bar {
+    width: 6px;
+    background: linear-gradient(180deg, var(--berry) 0%, var(--pine) 100%);
+    flex-shrink: 0;
+  }
+
+  .card-back .content {
+    flex: 1;
+    padding: 18px 16px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-back .person {
+    margin-bottom: 6px;
+  }
+
+  .card-back .person .name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--pine);
+    letter-spacing: 0.3px;
+  }
+
+  .card-back .person .title {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: var(--berry);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-top: 2px;
+  }
+
+  .card-back .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .card-back .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 7.5px;
+    color: var(--branch);
+    font-weight: 500;
+  }
+
+  .card-back .contact-row .icon {
+    width: 11px;
+    height: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-back .contact-row .icon svg {
+    width: 11px;
+    height: 11px;
+    fill: var(--berry);
+  }
+
+  .card-back .qr-area {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .card-back .qr-area canvas,
+  .card-back .qr-area img {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--snowflake);
+    border-radius: 4px;
+  }
+
+  .card-back .qr-area .qr-label {
+    font-size: 5.5px;
+    color: var(--mist);
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+
+  .card-back .mini-logo {
+    position: absolute;
+    right: 14px;
+    top: 16px;
+    height: 22px;
+    width: auto;
+    opacity: 0.15;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body {
+      background: white;
+      gap: 0.3in;
+      padding: 0.5in;
+    }
+    h2 { display: none; }
+    .card {
+      box-shadow: none;
+      border: 1px solid #ccc;
+      page-break-inside: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h2>Front</h2>
+<div class="card card-front">
+  <div class="logo-container">
+    <img class="logo-img" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='780' height='371' viewBox='0 0 780 371'%3E%3Cg id='droplet'%3E%3Cpath d='M 140 89 L 138 91 L 138 92 L 136 94 L 136 95 L 132 99 L 132 100 L 130 102 L 130 103 L 126 107 L 126 108 L 124 110 L 124 111 L 120 115 L 120 116 L 117 119 L 117 120 L 115 122 L 115 123 L 112 126 L 112 127 L 108 131 L 108 132 L 106 134 L 106 135 L 102 139 L 102 140 L 99 143 L 99 144 L 96 147 L 96 148 L 93 151 L 93 152 L 90 155 L 90 156 L 88 158 L 88 159 L 85 162 L 85 163 L 84 164 L 84 165 L 82 167 L 82 168 L 81 169 L 81 170 L 80 171 L 80 172 L 79 173 L 79 175 L 78 176 L 78 177 L 77 178 L 77 180 L 76 181 L 76 182 L 75 183 L 75 185 L 74 186 L 74 189 L 73 190 L 73 193 L 72 194 L 72 198 L 71 199 L 71 207 L 70 208 L 70 218 L 71 219 L 71 226 L 72 227 L 72 230 L 73 231 L 73 234 L 74 235 L 74 237 L 75 238 L 75 240 L 76 241 L 76 242 L 77 243 L 77 244 L 78 245 L 78 246 L 79 247 L 79 248 L 80 249 L 80 250 L 82 252 L 82 253 L 85 256 L 85 257 L 97 269 L 98 269 L 101 272 L 102 272 L 103 273 L 104 273 L 106 275 L 107 275 L 108 276 L 109 276 L 110 277 L 111 277 L 112 278 L 114 278 L 115 279 L 116 279 L 117 280 L 119 280 L 120 281 L 123 281 L 124 282 L 127 282 L 128 283 L 136 283 L 137 284 L 143 284 L 144 283 L 152 283 L 153 282 L 157 282 L 158 281 L 161 281 L 162 280 L 164 280 L 165 279 L 166 279 L 167 278 L 168 278 L 169 277 L 171 277 L 172 276 L 173 276 L 175 274 L 176 274 L 177 273 L 178 273 L 180 271 L 181 271 L 184 268 L 185 268 L 194 259 L 194 258 L 198 254 L 198 253 L 200 251 L 200 250 L 201 249 L 201 248 L 202 247 L 202 246 L 203 245 L 203 244 L 204 243 L 204 242 L 205 241 L 205 240 L 206 239 L 206 237 L 207 236 L 207 234 L 208 233 L 208 230 L 209 229 L 209 225 L 210 224 L 210 202 L 209 201 L 209 196 L 208 195 L 208 191 L 207 190 L 207 187 L 206 186 L 206 184 L 205 183 L 205 181 L 204 180 L 204 179 L 203 178 L 203 176 L 202 175 L 202 174 L 201 173 L 201 172 L 200 171 L 200 170 L 199 169 L 199 168 L 198 167 L 198 166 L 196 164 L 196 163 L 195 162 L 195 161 L 193 159 L 193 158 L 190 155 L 190 154 L 187 151 L 187 150 L 184 147 L 184 146 L 180 142 L 180 141 L 177 138 L 177 137 L 175 135 L 175 134 L 171 130 L 171 129 L 169 127 L 169 126 L 166 123 L 166 122 L 162 118 L 162 117 L 160 115 L 160 114 L 156 110 L 156 109 L 154 107 L 154 106 L 151 103 L 151 102 L 147 98 L 147 97 L 145 95 L 145 94 L 141 90 L 141 89 Z' fill='%239fcccf'/%3E%3Cpath d='M 138 94 L 135 97 L 135 98 L 133 100 L 132 100 L 132 102 L 130 104 L 130 107 L 129 108 L 126 108 L 126 110 L 124 112 L 124 113 L 121 116 L 121 117 L 118 120 L 117 120 L 117 125 L 118 126 L 118 127 L 119 127 L 120 128 L 120 129 L 121 130 L 121 131 L 124 134 L 124 135 L 126 137 L 126 138 L 127 138 L 128 139 L 128 140 L 130 142 L 130 143 L 133 146 L 133 147 L 136 150 L 136 151 L 139 154 L 139 155 L 144 160 L 144 161 L 145 162 L 145 163 L 146 163 L 147 164 L 147 165 L 150 168 L 150 169 L 152 171 L 152 172 L 154 174 L 154 175 L 155 175 L 156 176 L 156 177 L 158 179 L 158 180 L 159 180 L 160 181 L 160 183 L 163 186 L 163 187 L 164 187 L 165 188 L 165 189 L 168 192 L 168 193 L 170 195 L 170 196 L 172 198 L 172 199 L 173 200 L 173 201 L 174 202 L 174 203 L 176 205 L 176 207 L 177 208 L 177 209 L 178 210 L 178 211 L 179 212 L 179 214 L 180 215 L 180 216 L 181 217 L 181 219 L 182 220 L 182 222 L 183 223 L 183 226 L 184 227 L 184 231 L 185 232 L 185 236 L 186 237 L 186 258 L 185 259 L 185 263 L 188 263 L 188 262 L 190 260 L 191 260 L 191 259 L 192 258 L 192 257 L 193 256 L 193 254 L 192 253 L 192 249 L 193 248 L 198 248 L 199 247 L 201 247 L 201 242 L 202 241 L 204 241 L 204 237 L 205 236 L 205 235 L 206 234 L 206 233 L 207 232 L 207 225 L 208 224 L 210 224 L 210 218 L 208 218 L 207 217 L 207 215 L 208 214 L 210 214 L 210 199 L 209 199 L 208 198 L 208 197 L 207 196 L 207 192 L 206 191 L 206 188 L 205 187 L 205 183 L 204 183 L 203 182 L 203 178 L 202 177 L 202 175 L 201 175 L 200 174 L 200 173 L 197 173 L 196 172 L 196 171 L 195 171 L 194 170 L 194 167 L 192 165 L 192 158 L 190 158 L 189 159 L 186 159 L 184 157 L 184 153 L 185 152 L 185 149 L 184 149 L 183 148 L 183 147 L 182 147 L 181 146 L 181 144 L 179 144 L 178 143 L 178 139 L 177 139 L 176 138 L 176 137 L 174 135 L 174 134 L 171 134 L 170 133 L 170 131 L 169 131 L 168 130 L 168 126 L 167 125 L 165 125 L 164 124 L 164 121 L 162 119 L 162 118 L 159 115 L 158 115 L 157 114 L 157 112 L 156 111 L 156 110 L 155 110 L 154 109 L 154 108 L 153 107 L 153 106 L 150 103 L 150 102 L 149 101 L 147 101 L 146 100 L 146 99 L 145 99 L 144 98 L 144 94 Z' fill='%2394bdbe'/%3E%3Cpath d='M 88 163 L 88 165 L 87 166 L 86 166 L 86 170 L 87 171 L 87 172 L 90 172 L 91 173 L 91 175 L 90 176 L 79 176 L 79 178 L 80 179 L 80 192 L 79 193 L 79 195 L 80 196 L 80 198 L 79 199 L 78 199 L 77 200 L 76 200 L 76 203 L 77 204 L 77 206 L 78 207 L 81 207 L 82 208 L 82 212 L 84 214 L 84 215 L 85 216 L 85 217 L 88 220 L 88 223 L 89 223 L 92 226 L 92 227 L 94 229 L 94 230 L 99 235 L 99 236 L 101 238 L 101 239 L 102 240 L 102 241 L 104 243 L 104 244 L 105 244 L 106 245 L 106 246 L 108 248 L 108 249 L 111 252 L 111 253 L 112 254 L 112 255 L 113 255 L 114 256 L 114 257 L 116 259 L 116 260 L 118 262 L 118 263 L 119 263 L 120 264 L 120 266 L 122 268 L 122 269 L 123 270 L 123 271 L 125 273 L 125 275 L 126 276 L 126 277 L 127 278 L 127 279 L 128 280 L 128 281 L 131 281 L 132 282 L 138 282 L 139 281 L 141 281 L 141 280 L 142 279 L 147 279 L 148 280 L 148 281 L 154 281 L 154 276 L 153 275 L 153 272 L 154 271 L 157 271 L 157 268 L 155 268 L 154 267 L 154 264 L 155 263 L 156 263 L 156 261 L 155 260 L 155 259 L 154 258 L 154 253 L 153 252 L 153 251 L 152 250 L 152 247 L 151 246 L 151 244 L 149 242 L 149 239 L 147 237 L 147 236 L 146 235 L 146 234 L 145 233 L 145 232 L 144 232 L 143 231 L 143 229 L 142 229 L 141 228 L 141 226 L 138 223 L 138 222 L 135 219 L 135 218 L 132 215 L 132 214 L 129 211 L 129 210 L 127 208 L 127 207 L 123 203 L 123 202 L 121 200 L 121 199 L 117 195 L 117 194 L 115 192 L 115 191 L 111 187 L 111 186 L 109 184 L 109 183 L 105 179 L 105 178 L 103 176 L 103 175 L 100 172 L 98 172 L 97 171 L 97 169 L 96 169 L 95 168 L 95 164 L 92 164 L 91 163 Z' fill='%23a7d7d9'/%3E%3Cpath d='M 72 200 L 72 205 L 71 206 L 70 206 L 70 218 L 71 218 L 72 219 L 72 227 L 73 228 L 73 231 L 74 232 L 77 232 L 78 233 L 78 236 L 77 237 L 76 237 L 76 240 L 78 240 L 79 241 L 79 246 L 80 247 L 80 248 L 82 248 L 83 249 L 83 253 L 87 253 L 88 254 L 88 256 L 89 256 L 90 257 L 94 257 L 95 258 L 95 260 L 94 261 L 93 261 L 93 263 L 94 264 L 100 264 L 101 265 L 101 268 L 102 268 L 103 269 L 103 272 L 108 272 L 109 273 L 110 273 L 111 274 L 111 275 L 113 275 L 114 276 L 114 278 L 118 278 L 120 280 L 126 280 L 126 278 L 125 277 L 125 276 L 124 275 L 124 273 L 122 271 L 122 270 L 121 269 L 121 268 L 119 266 L 119 264 L 118 264 L 117 263 L 117 262 L 115 260 L 115 259 L 113 257 L 113 256 L 112 256 L 111 255 L 111 254 L 110 253 L 110 252 L 107 249 L 107 248 L 105 246 L 105 245 L 104 245 L 103 244 L 103 243 L 101 241 L 101 240 L 100 239 L 100 238 L 98 236 L 98 235 L 93 230 L 93 229 L 91 227 L 91 226 L 89 224 L 88 224 L 87 223 L 87 220 L 84 217 L 84 216 L 83 215 L 83 214 L 78 209 L 78 208 L 76 206 L 76 204 L 75 203 L 75 200 Z' fill='%23b0e0e1'/%3E%3C/g%3E%3C/svg%3E" alt="AS Droplet">
+    <div class="logo-text">
+      <div class="company-name">Anesthesia<br>Solutions</div>
+      <div class="since">SINCE 2003</div>
+    </div>
+  </div>
+  <div class="accent-bar"></div>
+</div>
+
+<h2>Back</h2>
+<div class="card card-back">
+  <div class="side-bar"></div>
+  <div class="content">
+    <div class="person">
+      <div class="name">Danielle Boggio</div>
+      <div class="title">CEO &amp; Founder &nbsp;|&nbsp; CRNA</div>
+    </div>
+    <div class="contact-info">
+      <div class="contact-row">
+        <span class="icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.01-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </span>
+        <span>(410) 703-8858</span>
+      </div>
+      <div class="contact-row">
+        <span class="icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </span>
+        <span>danielle@anesthesia-solutions.com</span>
+      </div>
+      <div class="contact-row">
+        <span class="icon">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2s.06 1.34.14 2H4.26zM5.08 16h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 014.33-3.56A15.65 15.65 0 008.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2s.07-1.35.16-2h4.68c.09.65.16 1.32.16 2s-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2s-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/></svg>
+        </span>
+        <span>anesthesia-solutions.com</span>
+      </div>
+    </div>
+  </div>
+  <div class="qr-area">
+    <canvas id="qr-canvas"></canvas>
+    <span class="qr-label">Visit Us</span>
+  </div>
+</div>
+
+<script>
+  // Generate QR code
+  var qr = qrcode(0, 'M');
+  qr.addData('https://www.anesthesia-solutions.com/');
+  qr.make();
+
+  // Draw QR code to canvas with brand colors
+  var canvas = document.getElementById('qr-canvas');
+  var size = 200;
+  canvas.width = size;
+  canvas.height = size;
+  var ctx = canvas.getContext('2d');
+  var moduleCount = qr.getModuleCount();
+  var cellSize = size / moduleCount;
+
+  // White background
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, size, size);
+
+  // Draw modules in Pine color
+  ctx.fillStyle = '#27363F';
+  for (var row = 0; row < moduleCount; row++) {
+    for (var col = 0; col < moduleCount; col++) {
+      if (qr.isDark(row, col)) {
+        ctx.fillRect(col * cellSize, row * cellSize, cellSize + 0.5, cellSize + 0.5);
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
