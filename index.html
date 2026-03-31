@@ -53,7 +53,7 @@
 
   /* ── FRONT ── */
   .card-front {
-    background: var(--white);
+    background: var(--snowflake);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,33 +62,47 @@
 
   .card-front .logo-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 4px;
+    margin-top: -6px;
   }
 
   .card-front .logo-img {
-    height: 72px;
+    height: 88px;
     width: auto;
   }
 
   .card-front .logo-text {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .card-front .logo-text .company-name {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 800;
     color: var(--pine);
     line-height: 1.15;
+    text-align: center;
   }
 
   .card-front .logo-text .since {
     font-size: 10px;
     font-weight: 500;
-    color: var(--mist);
+    color: var(--branch);
     letter-spacing: 1.5px;
     margin-top: 2px;
+  }
+
+  .card-front .tagline {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--berry);
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-top: 4px;
+    margin-bottom: 2px;
   }
 
   .card-front .accent-bar {
@@ -185,14 +199,14 @@
   .card-back .qr-area img {
     width: 56px;
     height: 56px;
-    border: 2px solid var(--snowflake);
+    border: 2px solid var(--mist);
     border-radius: 4px;
   }
 
   .card-back .qr-area .qr-label {
     font-size: 5.5px;
     color: var(--mist);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
   }
@@ -232,6 +246,7 @@
       <div class="company-name">Anesthesia<br>Solutions</div>
       <div class="since">SINCE 2003</div>
     </div>
+    <div class="tagline">Locum Tenens Staffing</div>
   </div>
   <div class="accent-bar"></div>
 </div>
