@@ -254,14 +254,27 @@
   </div>
   <div class="qr-area">
     <canvas id="qr-canvas"></canvas>
-    <span class="qr-label">Visit Us</span>
+    <span class="qr-label">Save Contact</span>
   </div>
 </div>
 
 <script>
-  // Generate QR code
+  // Generate QR code with vCard data for contact saving
+  var vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'N:Boggio;Danielle;;;',
+    'FN:Danielle Boggio',
+    'ORG:Anesthesia Solutions',
+    'TITLE:CEO & Founder | CRNA',
+    'TEL;TYPE=WORK,VOICE:(410) 703-8858',
+    'EMAIL;TYPE=WORK:danielle@anesthesia-solutions.com',
+    'URL:https://www.anesthesia-solutions.com/',
+    'END:VCARD'
+  ].join('\n');
+
   var qr = qrcode(0, 'M');
-  qr.addData('https://www.anesthesia-solutions.com/');
+  qr.addData(vcard);
   qr.make();
 
   // Draw QR code to canvas with brand colors
