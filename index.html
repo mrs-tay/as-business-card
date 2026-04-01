@@ -161,39 +161,37 @@
     fill: var(--berry);
   }
 
-  .card-back .qr-area {
+  .card-back .qr-codes {
     position: absolute;
-    right: 14px;
-    bottom: 12px;
+    right: 10px;
+    top: 12px;
+    bottom: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    justify-content: space-between;
   }
 
-  .card-back .qr-area canvas,
-  .card-back .qr-area img {
-    width: 56px;
-    height: 56px;
-    border: 2px solid var(--mist);
-    border-radius: 4px;
+  .card-back .qr-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .card-back .qr-area canvas {
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid var(--mist);
+    border-radius: 3px;
   }
 
   .card-back .qr-area .qr-label {
-    font-size: 5.5px;
+    font-size: 4.5px;
     color: var(--mist);
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
-  }
-
-  .card-back .mini-logo {
-    position: absolute;
-    right: 14px;
-    top: 16px;
-    height: 22px;
-    width: auto;
-    opacity: 0.15;
   }
 
   /* ── PRINT ── */
@@ -252,14 +250,46 @@
       </div>
     </div>
   </div>
-  <div class="qr-area">
-    <canvas id="qr-canvas"></canvas>
-    <span class="qr-label">Save Contact</span>
+  <div class="qr-codes">
+    <div class="qr-area">
+      <canvas id="qr-contact"></canvas>
+      <span class="qr-label">Save Contact</span>
+    </div>
+    <div class="qr-area">
+      <canvas id="qr-website"></canvas>
+      <span class="qr-label">Visit Us</span>
+    </div>
   </div>
 </div>
 
 <script>
-  // Generate QR code with vCard data for contact saving
+  function drawQR(canvasId, data) {
+    var qr = qrcode(0, 'M');
+    qr.addData(data);
+    qr.make();
+
+    var canvas = document.getElementById(canvasId);
+    var size = 200;
+    canvas.width = size;
+    canvas.height = size;
+    var ctx = canvas.getContext('2d');
+    var moduleCount = qr.getModuleCount();
+    var cellSize = size / moduleCount;
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, size, size);
+
+    ctx.fillStyle = '#27363F';
+    for (var row = 0; row < moduleCount; row++) {
+      for (var col = 0; col < moduleCount; col++) {
+        if (qr.isDark(row, col)) {
+          ctx.fillRect(col * cellSize, row * cellSize, cellSize + 0.5, cellSize + 0.5);
+        }
+      }
+    }
+  }
+
+  // QR 1: vCard for saving contact
   var vcard = [
     'BEGIN:VCARD',
     'VERSION:3.0',
@@ -272,33 +302,10 @@
     'URL:https://www.anesthesia-solutions.com/',
     'END:VCARD'
   ].join('\n');
+  drawQR('qr-contact', vcard);
 
-  var qr = qrcode(0, 'M');
-  qr.addData(vcard);
-  qr.make();
-
-  // Draw QR code to canvas with brand colors
-  var canvas = document.getElementById('qr-canvas');
-  var size = 200;
-  canvas.width = size;
-  canvas.height = size;
-  var ctx = canvas.getContext('2d');
-  var moduleCount = qr.getModuleCount();
-  var cellSize = size / moduleCount;
-
-  // White background
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fillRect(0, 0, size, size);
-
-  // Draw modules in Pine color
-  ctx.fillStyle = '#27363F';
-  for (var row = 0; row < moduleCount; row++) {
-    for (var col = 0; col < moduleCount; col++) {
-      if (qr.isDark(row, col)) {
-        ctx.fillRect(col * cellSize, row * cellSize, cellSize + 0.5, cellSize + 0.5);
-      }
-    }
-  }
+  // QR 2: Website URL
+  drawQR('qr-website', 'https://www.anesthesia-solutions.com/');
 </script>
 
 </body>
